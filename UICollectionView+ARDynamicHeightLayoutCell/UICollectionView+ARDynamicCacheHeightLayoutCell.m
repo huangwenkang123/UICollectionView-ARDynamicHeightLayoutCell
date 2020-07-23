@@ -45,6 +45,8 @@ typedef NS_ENUM(NSUInteger, ARDynamicSizeCaculateType) {
   SEL selectors[] = {
     @selector(registerNib:forCellWithReuseIdentifier:),
     @selector(registerClass:forCellWithReuseIdentifier:),
+    @selector(registerNib:forSupplementaryViewOfKind:withReuseIdentifier:),
+    @selector(registerClass:forSupplementaryViewOfKind:withReuseIdentifier:),
     @selector(reloadData),
     @selector(reloadSections:),
     @selector(deleteSections:),
@@ -153,6 +155,7 @@ typedef NS_ENUM(NSUInteger, ARDynamicSizeCaculateType) {
   return size;
 }
 
+
 #pragma mark - swizzled methods
 
 - (void)ar_registerClass:(Class)cellClass
@@ -171,6 +174,27 @@ typedef NS_ENUM(NSUInteger, ARDynamicSizeCaculateType) {
   NSMutableDictionary *templeCells = [self templeCells];
   templeCells[identifier] = cell;
 }
+
+- (void)ar_registerClass:(Class)viewClass
+forSupplementaryViewOfKind:(NSString *)elementKind withReuseIdentifier:(NSString *)identifier {
+    
+    [self ar_registerClass:viewClass forSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier];
+    id cell = [[viewClass alloc] initWithFrame:CGRectZero];
+    NSMutableDictionary *templeCells = [self templeCells];
+    templeCells[identifier] = cell;
+
+}
+
+- (void)ar_registerNib:(UINib *)nib
+forSupplementaryViewOfKind:(NSString *)kind withReuseIdentifier:(NSString *)identifier {
+    
+    [self ar_registerNib:nib forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
+    id cell = [[nib instantiateWithOwner:nil options:nil] lastObject];
+    NSMutableDictionary *templeCells = [self templeCells];
+    templeCells[identifier] = cell;
+}
+
+
 
 #pragma mark - section changes
 

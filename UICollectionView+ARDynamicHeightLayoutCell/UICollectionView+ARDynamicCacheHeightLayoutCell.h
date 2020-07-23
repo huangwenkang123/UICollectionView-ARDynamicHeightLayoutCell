@@ -76,4 +76,23 @@
                              (void (^)(__kindof UICollectionViewCell *cell))
                                  configuration;
 
+
+///**
+// *  caculate cell size with a fixed width
+// *
+// *  @param identifier    cell's reuse identifier
+// *  @param indexPath     indexPath
+// *  @param fixedWidth    your expect width
+// *  @param configuration fill cell with you feed data
+// *
+// *  @return the caculated cell's height
+// */
+//
+//- (CGSize)ar_sizeForReusableViewWithIdentifier:(NSString *)identifier
+//                             indexPath:(NSIndexPath *)indexPath
+//                            fixedWidth:(CGFloat)fixedWidth
+//                         configuration:
+//                             (void (^)(__kindof UICollectionReusableView *cell))
+//                                 configuration;
+
 @end
