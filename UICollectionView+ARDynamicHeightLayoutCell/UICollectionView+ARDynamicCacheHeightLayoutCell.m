@@ -365,7 +365,7 @@ forSupplementaryViewOfKind:(NSString *)kind withReuseIdentifier:(NSString *)iden
                                       ? NSLayoutAttributeWidth
                                       : NSLayoutAttributeHeight;
     NSLayoutConstraint *tempConstraint =
-        [NSLayoutConstraint constraintWithItem:cell.contentView
+        [NSLayoutConstraint constraintWithItem:cell
                                      attribute:attribute
                                      relatedBy:NSLayoutRelationEqual
                                         toItem:nil
