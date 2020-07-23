@@ -35,6 +35,11 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"DynamicSizeCell" bundle:nil] forCellWithReuseIdentifier:@"DynamicSizeCell"];
     
     
+    [self.navigationController setNavigationBarHidden:YES];
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"DynamicHeightReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"DynamicHeightReusableView"];
+
+    
     // demo data
     self.feeds = [NSMutableArray array];
     NSArray *titles = @[@"AugustRush",
@@ -69,6 +74,9 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
+    
     FeedModel *feed = self.feeds[indexPath.row];
     if (self.onlyImage) {
         return [collectionView ar_sizeForCellWithIdentifier:@"DynamicSizeCell"
@@ -97,6 +105,8 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"DynamicHeightReusableView" forIndexPath:indexPath];
     if (self.onlyImage) {
         DynamicSizeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DynamicSizeCell" forIndexPath:indexPath];
         FeedModel *feed = self.feeds[indexPath.row];

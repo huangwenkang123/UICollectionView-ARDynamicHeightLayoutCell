@@ -43,10 +43,11 @@ typedef NS_ENUM(NSUInteger, ARDynamicSizeCaculateType) {
 
 + (void)swizzlingMethods {
   SEL selectors[] = {
+      
+    @selector(registerNib:forSupplementaryViewOfKind:withReuseIdentifier:),
+    @selector(registerClass:forSupplementaryViewOfKind:withReuseIdentifier:),
     @selector(registerNib:forCellWithReuseIdentifier:),
     @selector(registerClass:forCellWithReuseIdentifier:),
-//    @selector(registerNib:forSupplementaryViewOfKind:withReuseIdentifier:),
-//    @selector(registerClass:forSupplementaryViewOfKind:withReuseIdentifier:),
     @selector(reloadData),
     @selector(reloadSections:),
     @selector(deleteSections:),
@@ -327,64 +328,67 @@ forSupplementaryViewOfKind:(NSString *)kind withReuseIdentifier:(NSString *)iden
 }
 
 
-//- (CGSize)ar_sizeForReusableViewWithIdentifier:(NSString *)identifier indexPath:(NSIndexPath *)indexPath fixedWidth:(CGFloat)fixedWidth configuration:(void (^)(__kindof UICollectionReusableView *))configuration {
-//    
-//    return [self ar_sizeForReusableViewWithIdentifier:identifier
-//                                            indexPath:indexPath
-//                                           fixedValue:fixedWidth
-//                                         caculateType:ARDynamicSizeCaculateTypeHeight
-//                                        configuration:configuration];
-//}
-//
-//- (CGSize)ar_sizeForReusableViewWithIdentifier:(NSString *)identifier
-//                             indexPath:(NSIndexPath *)indexPath
-//                            fixedValue:(CGFloat)fixedValue
-//                          caculateType:(ARDynamicSizeCaculateType)caculateType
-//                         configuration:
-//                             (void (^)(__kindof UICollectionViewCell *))
-//                                 configuration {
-//  BOOL hasCache = [self hasCacheAtIndexPath:indexPath];
-//  if (hasCache) {
-//    if (![[self sizeCacheAtIndexPath:indexPath]
-//            isEqualToValue:ARLayoutCellInvalidateValue]) {
-//      return [[self sizeCacheAtIndexPath:indexPath] CGSizeValue];
-//    }
-//  }
-//
-//  // has no size chche
-//  UICollectionViewCell *cell =
-//      [self templeCaculateCellWithIdentifier:identifier];
-//  configuration(cell);
-//  CGSize size = CGSizeMake(fixedValue, fixedValue);
-//  if (caculateType != ARDynamicSizeCaculateTypeSize) {
-//    NSLayoutAttribute attribute = caculateType == ARDynamicSizeCaculateTypeWidth
-//                                      ? NSLayoutAttributeWidth
-//                                      : NSLayoutAttributeHeight;
-//    NSLayoutConstraint *tempConstraint =
-//        [NSLayoutConstraint constraintWithItem:cell.contentView
-//                                     attribute:attribute
-//                                     relatedBy:NSLayoutRelationEqual
-//                                        toItem:nil
-//                                     attribute:NSLayoutAttributeNotAnAttribute
-//                                    multiplier:1
-//                                      constant:fixedValue];
-//    [cell.contentView addConstraint:tempConstraint];
-//    size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//    [cell.contentView removeConstraint:tempConstraint];
-//  } else {
-//    size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//  }
-//
-//  NSMutableArray *sectionCache = [self sizeCache][indexPath.section];
-//  NSValue *sizeValue = [NSValue valueWithCGSize:size];
-//  if (hasCache) {
-//    [sectionCache replaceObjectAtIndex:indexPath.row withObject:sizeValue];
-//  } else {
-//    [sectionCache insertObject:sizeValue atIndex:indexPath.row];
-//  }
-//  return size;
-//}
-//
+- (CGSize)ar_sizeForReusableViewWithIdentifier:(NSString *)identifier
+                                     indexPath:(NSIndexPath *)indexPath
+                                    fixedWidth:(CGFloat)fixedWidth
+                                 configuration:(void (^)(__kindof UICollectionReusableView *))configuration {
+    
+    return [self ar_sizeForReusableViewWithIdentifier:identifier
+                                            indexPath:indexPath
+                                           fixedValue:fixedWidth
+                                         caculateType:ARDynamicSizeCaculateTypeHeight
+                                        configuration:configuration];
+}
+
+- (CGSize)ar_sizeForReusableViewWithIdentifier:(NSString *)identifier
+                             indexPath:(NSIndexPath *)indexPath
+                            fixedValue:(CGFloat)fixedValue
+                          caculateType:(ARDynamicSizeCaculateType)caculateType
+                         configuration:
+                             (void (^)(__kindof UICollectionViewCell *))
+                                 configuration {
+  BOOL hasCache = [self hasCacheAtIndexPath:indexPath];
+  if (hasCache) {
+    if (![[self sizeCacheAtIndexPath:indexPath]
+            isEqualToValue:ARLayoutCellInvalidateValue]) {
+      return [[self sizeCacheAtIndexPath:indexPath] CGSizeValue];
+    }
+  }
+
+  // has no size chche
+  UICollectionViewCell *cell =
+      [self templeCaculateCellWithIdentifier:identifier];
+  configuration(cell);
+  CGSize size = CGSizeMake(fixedValue, fixedValue);
+  if (caculateType != ARDynamicSizeCaculateTypeSize) {
+    NSLayoutAttribute attribute = caculateType == ARDynamicSizeCaculateTypeWidth
+                                      ? NSLayoutAttributeWidth
+                                      : NSLayoutAttributeHeight;
+    NSLayoutConstraint *tempConstraint =
+        [NSLayoutConstraint constraintWithItem:cell.contentView
+                                     attribute:attribute
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:nil
+                                     attribute:NSLayoutAttributeNotAnAttribute
+                                    multiplier:1
+                                      constant:fixedValue];
+    [cell.contentView addConstraint:tempConstraint];
+    size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    [cell.contentView removeConstraint:tempConstraint];
+  } else {
+    size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+  }
+
+  NSMutableArray *sectionCache = [self sizeCache][indexPath.section];
+  NSValue *sizeValue = [NSValue valueWithCGSize:size];
+  if (hasCache) {
+    [sectionCache replaceObjectAtIndex:indexPath.row withObject:sizeValue];
+  } else {
+    [sectionCache insertObject:sizeValue atIndex:indexPath.row];
+  }
+  return size;
+}
+
 
 
 

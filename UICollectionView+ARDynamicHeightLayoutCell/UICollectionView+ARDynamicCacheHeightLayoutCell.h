@@ -77,22 +77,22 @@
                                  configuration;
 
 
-///**
-// *  caculate cell size with fixed height
-// *
-// *  @param identifier    cell's reuse identifier
-// *  @param indexPath     indexPath
-// *  @param fixedWidth    your expect height
-// *  @param configuration fill cell with you feed data
-// *
-// *  @return the caculated cell's height
-// */
-//
-//- (CGSize)ar_sizeForReusableViewWithIdentifier:(NSString *)identifier
-//                             indexPath:(NSIndexPath *)indexPath
-//                           fixedWidth:(CGFloat)fixedWidth
-//                         configuration:
-//                             (void (^)(__kindof UICollectionReusableView *cell))
-//                                 configuration;
+/**
+ *  caculate cell size with fixed height
+ *
+ *  @param identifier    cell's reuse identifier
+ *  @param indexPath     indexPath
+ *  @param fixedWidth    your expect height
+ *  @param configuration fill cell with you feed data
+ *
+ *  @return the caculated cell's height
+ */
+
+- (CGSize)ar_sizeForReusableViewWithIdentifier:(NSString *)identifier
+                             indexPath:(NSIndexPath *)indexPath
+                           fixedWidth:(CGFloat)fixedWidth
+                         configuration:
+                             (void (^)(__kindof UICollectionReusableView *cell))
+                                 configuration;
 
 @end
