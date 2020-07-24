@@ -345,7 +345,7 @@ forSupplementaryViewOfKind:(NSString *)kind withReuseIdentifier:(NSString *)iden
                             fixedValue:(CGFloat)fixedValue
                           caculateType:(ARDynamicSizeCaculateType)caculateType
                          configuration:
-                             (void (^)(__kindof UICollectionViewCell *))
+                             (void (^)(__kindof UICollectionReusableView *))
                                  configuration {
   BOOL hasCache = [self hasCacheAtIndexPath:indexPath];
   if (hasCache) {
@@ -356,7 +356,7 @@ forSupplementaryViewOfKind:(NSString *)kind withReuseIdentifier:(NSString *)iden
   }
 
   // has no size chche
-  UICollectionViewCell *cell =
+  UICollectionReusableView *cell =
       [self templeCaculateCellWithIdentifier:identifier];
   configuration(cell);
   CGSize size = CGSizeMake(fixedValue, fixedValue);
@@ -372,9 +372,9 @@ forSupplementaryViewOfKind:(NSString *)kind withReuseIdentifier:(NSString *)iden
                                      attribute:NSLayoutAttributeNotAnAttribute
                                     multiplier:1
                                       constant:fixedValue];
-    [cell.contentView addConstraint:tempConstraint];
+    [cell addConstraint:tempConstraint];
     size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    [cell.contentView removeConstraint:tempConstraint];
+    [cell removeConstraint:tempConstraint];
   } else {
     size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
   }
