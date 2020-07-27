@@ -37,8 +37,8 @@
 - (CGSize)ar_sizeForCellWithIdentifier:(NSString *)identifier
                              indexPath:(NSIndexPath *)indexPath
                          configuration:
-                             (void (^)(__kindof UICollectionViewCell *))
-                                 configuration;
+(void (^)(__kindof UICollectionViewCell *))
+configuration;
 
 /**
  *  caculate cell size with a fixed width
@@ -55,8 +55,8 @@
                              indexPath:(NSIndexPath *)indexPath
                             fixedWidth:(CGFloat)fixedWidth
                          configuration:
-                             (void (^)(__kindof UICollectionViewCell *cell))
-                                 configuration;
+(void (^)(__kindof UICollectionViewCell *cell))
+configuration;
 
 /**
  *  caculate cell size with fixed height
@@ -73,8 +73,8 @@
                              indexPath:(NSIndexPath *)indexPath
                            fixedHeight:(CGFloat)fixedHeight
                          configuration:
-                             (void (^)(__kindof UICollectionViewCell *cell))
-                                 configuration;
+(void (^)(__kindof UICollectionViewCell *cell))
+configuration;
 
 
 /**
@@ -88,11 +88,11 @@
  *  @return the caculated cell's height
  */
 
-- (CGSize)ar_sizeForReusableViewWithIdentifier:(NSString *)identifier
-                             indexPath:(NSIndexPath *)indexPath
-                           fixedWidth:(CGFloat)fixedWidth
-                         configuration:
-                             (void (^)(__kindof UICollectionReusableView *cell))
-                                 configuration;
+- (CGSize)ar_sizeForReusableViewHeightIdentifier:(NSString *)identifier
+                                       indexPath:(NSIndexPath *)indexPath
+                                      fixedWidth:(CGFloat)fixedWidth
+                                   configuration:
+(void (^)(__kindof UICollectionReusableView *cell))
+configuration;
 
 @end

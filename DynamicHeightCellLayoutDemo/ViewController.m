@@ -33,7 +33,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     [self.collectionView registerNib:[UINib nibWithNibName:@"DynamicHeightCell" bundle:nil] forCellWithReuseIdentifier:@"DynamicHeightCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"DynamicSizeCell" bundle:nil] forCellWithReuseIdentifier:@"DynamicSizeCell"];
-    
+    self.collectionView.contentInset = UIEdgeInsetsZero;
     
     [self.navigationController setNavigationBarHidden:YES];
     
@@ -87,7 +87,7 @@
                 
     }else{
         //get screen width & minus 20 points
-        CGFloat width = [[UIScreen mainScreen] bounds].size.width - 20;
+        CGFloat width = [[UIScreen mainScreen] bounds].size.width - 5;
         return [collectionView ar_sizeForCellWithIdentifier:@"DynamicHeightCell"
                                                   indexPath:indexPath
                                                  fixedWidth:width configuration:^(id cell) {
